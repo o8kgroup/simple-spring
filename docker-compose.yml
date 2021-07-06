@@ -1,0 +1,19 @@
+version: "3.7"
+services:
+  db:
+    image: postgres
+    container_name: "simple-spring"
+    volumes:
+      - "./data/postgres:/var/lib/postgresql/data"
+      - "./src/main/resources/db/changelog/init.sql:/docker-entrypoint-initdb.d/1-init.sql"
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - TZ=GMT
+    ports:
+      - 5432:5432
+    restart: always
+networks:
+  app-network:
+    driver: bridge
